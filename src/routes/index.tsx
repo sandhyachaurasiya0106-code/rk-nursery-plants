@@ -59,6 +59,21 @@ function Home() {
                 </div>
               ))}
             </dl>
+            <div className="mt-8 grid max-w-md grid-cols-3 gap-2 text-xs">
+              {[
+                { Icon: Leaf, t: "Healthy Plants", d: "Quality checked" },
+                { Icon: Truck, t: "Safe Delivery", d: "Secure packaging" },
+                { Icon: Sprout, t: "Care Support", d: "Guides & help" },
+              ].map(({ Icon, t, d }) => (
+                <div key={t} className="rounded-xl bg-[color:var(--cream-deep)] p-3">
+                  <div className="flex items-center gap-1.5 text-primary">
+                    <Icon className="h-3.5 w-3.5" />
+                    <span className="font-display text-[0.78rem]">{t}</span>
+                  </div>
+                  <p className="mt-0.5 text-[0.7rem] text-muted-foreground">{d}</p>
+                </div>
+              ))}
+            </div>
           </div>
           <div className="relative md:col-span-6">
             <div className="absolute -inset-6 -z-10 rounded-[2rem] bg-[color:var(--cream-deep)]" />
