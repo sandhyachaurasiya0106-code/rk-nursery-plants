@@ -125,6 +125,6 @@ export const CATEGORY_META: Record<PlantCategory, { emoji: string; tagline: stri
   Indoor: { emoji: "🌿", tagline: "Air-purifying greens that thrive inside." },
   Outdoor: { emoji: "🌳", tagline: "Hardy plants for balconies, gardens, and gates." },
   Flowering: { emoji: "🌸", tagline: "Year-round colour and fragrance." },
-  Fruit: { emoji: "🍋", tagline: "Edible plants for terraces and backyards." },
-  Succulents: { emoji: "🌵", tagline: "Low-water beauties for sunny spots." },
+  Fruit: { emoji: "", tagline: "Edible plants for terraces and backyards." },
+  Succulents: { emoji: "", tagline: "Low-water beauties for sunny spots." },
 };
