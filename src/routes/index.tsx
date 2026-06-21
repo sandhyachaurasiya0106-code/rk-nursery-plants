@@ -2,9 +2,10 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { WhatsAppFab } from "@/components/WhatsAppFab";
-import { CATEGORY_META, PLANT_CATEGORIES, plants, posts, whatsappLink } from "@/lib/nursery-data";
+import { PLANT_CATEGORIES, plants, posts, whatsappLink } from "@/lib/nursery-data";
 import hero from "@/assets/hero.jpg";
-import { ArrowRight, Leaf, MapPin, MessageCircle, Sprout, Truck } from "lucide-react";
+import { ArrowRight, Heart, Leaf, MapPin, MessageCircle, Sprout, Truck } from "lucide-react";
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -58,6 +59,21 @@ function Home() {
                 </div>
               ))}
             </dl>
+            <div className="mt-8 grid max-w-md grid-cols-3 gap-2 text-xs">
+              {[
+                { Icon: Leaf, t: "Healthy Plants", d: "Quality checked" },
+                { Icon: Truck, t: "Safe Delivery", d: "Secure packaging" },
+                { Icon: Sprout, t: "Care Support", d: "Guides & help" },
+              ].map(({ Icon, t, d }) => (
+                <div key={t} className="rounded-xl bg-[color:var(--cream-deep)] p-3">
+                  <div className="flex items-center gap-1.5 text-primary">
+                    <Icon className="h-3.5 w-3.5" />
+                    <span className="font-display text-[0.78rem]">{t}</span>
+                  </div>
+                  <p className="mt-0.5 text-[0.7rem] text-muted-foreground">{d}</p>
+                </div>
+              ))}
+            </div>
           </div>
           <div className="relative md:col-span-6">
             <div className="absolute -inset-6 -z-10 rounded-[2rem] bg-[color:var(--cream-deep)]" />
@@ -93,49 +109,87 @@ function Home() {
         </div>
       </section>
 
-      {/* CATEGORIES */}
-      <section className="container-rk py-24">
-        <div className="flex items-end justify-between gap-6">
-          <div>
-            <p className="text-xs uppercase tracking-widest text-muted-foreground">Shop by category</p>
-            <h2 className="mt-2 text-4xl text-primary md:text-5xl">Find your plant kind.</h2>
-          </div>
-          <Link to="/catalog" className="hidden text-sm text-primary hover:underline md:inline">All plants →</Link>
+      {/* CATEGORIES — circular row */}
+      <section className="container-rk py-20">
+        <div className="text-center">
+          <p className="text-xs uppercase tracking-widest text-muted-foreground">Shop by category</p>
+          <h2 className="mt-2 text-4xl text-primary md:text-5xl">Find your plant kind.</h2>
         </div>
-        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-12 grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 md:grid-cols-5">
           {PLANT_CATEGORIES.map((cat) => {
             const sample = plants.find((p) => p.category === cat);
             const count = plants.filter((p) => p.category === cat).length;
-            const meta = CATEGORY_META[cat];
             return (
               <Link
                 key={cat}
                 to="/catalog"
-                className="group relative overflow-hidden rounded-2xl bg-[color:var(--cream-deep)]"
+                className="group flex flex-col items-center text-center"
               >
-                {sample && (
-                  <img
-                    src={sample.image}
-                    alt={`${cat} plants at R.K Nursery`}
-                    loading="lazy"
-                    width={800}
-                    height={1000}
-                    className="aspect-[4/5] w-full object-cover transition duration-700 group-hover:scale-[1.03]"
-                  />
-                )}
-                <div className="absolute inset-0 bg-gradient-to-t from-primary/85 via-primary/20 to-transparent" />
-                <div className="absolute inset-x-0 bottom-0 p-6 text-primary-foreground">
-                  <p className="text-2xl">
-</p>
-                  <h3 className="mt-1 font-display text-2xl">{cat} Plants</h3>
-                  <p className="mt-1 text-sm text-primary-foreground/85">{meta.tagline}</p>
-                  <p className="mt-3 inline-flex items-center gap-1.5 text-sm">
-                    View {count} plants <ArrowRight className="h-3.5 w-3.5" />
-                  </p>
+                <div className="relative aspect-square w-28 overflow-hidden rounded-full bg-[color:var(--cream-deep)] ring-1 ring-border transition-all duration-500 group-hover:ring-primary/40 group-hover:shadow-lift sm:w-32 md:w-36">
+                  {sample && (
+                    <img
+                      src={sample.image}
+                      alt={`${cat} plants at R.K Nursery`}
+                      loading="lazy"
+                      width={400}
+                      height={400}
+                      className="h-full w-full object-cover transition duration-700 group-hover:scale-110"
+                    />
+                  )}
                 </div>
+                <h3 className="mt-4 font-display text-base text-primary md:text-lg">{cat} Plants</h3>
+                <p className="mt-0.5 text-xs text-muted-foreground">{count} varieties</p>
               </Link>
             );
           })}
+        </div>
+      </section>
+
+      {/* DEAL OF THE DAY */}
+      <section className="bg-[color:var(--cream-deep)]">
+        <div className="container-rk py-20">
+          <div className="flex items-end justify-between gap-6">
+            <div>
+              <p className="text-xs uppercase tracking-widest text-[color:var(--moss)]">Deal of the Day</p>
+              <h2 className="mt-2 font-display text-4xl text-primary md:text-5xl">Limited-time picks.</h2>
+              <p className="mt-2 max-w-md text-sm text-muted-foreground">Hand-selected plants at special prices — message us on WhatsApp to grab yours.</p>
+            </div>
+            <Link to="/catalog" className="hidden text-sm text-primary hover:underline md:inline">All offers →</Link>
+          </div>
+          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {plants.slice(4, 8).map((p) => {
+              const original = Math.round(p.price * 1.25);
+              return (
+                <article key={p.id} className="group overflow-hidden rounded-2xl bg-background shadow-soft transition hover:shadow-lift">
+                  <div className="relative aspect-square overflow-hidden bg-[color:var(--cream-deep)]">
+                    <img src={p.image} alt={p.name} loading="lazy" width={600} height={600} className="h-full w-full object-cover transition duration-700 group-hover:scale-105" />
+                    <span className="absolute left-3 top-3 rounded-full bg-[color:var(--moss)] px-2.5 py-1 text-[10px] font-medium uppercase tracking-wider text-primary-foreground">
+                      Save 20%
+                    </span>
+                    <button type="button" aria-label="Save plant" className="absolute right-3 top-3 grid h-8 w-8 place-items-center rounded-full bg-background/90 text-primary transition hover:bg-background">
+                      <Heart className="h-4 w-4" />
+                    </button>
+                  </div>
+                  <div className="p-4">
+                    <h3 className="font-display text-base text-primary">{p.name}</h3>
+                    <p className="text-xs italic text-muted-foreground">{p.latin}</p>
+                    <div className="mt-3 flex items-baseline gap-2">
+                      <span className="font-display text-lg text-primary">₹{p.price}</span>
+                      <span className="text-xs text-muted-foreground line-through">₹{original}</span>
+                    </div>
+                    <a
+                      href={whatsappLink(`Hi R.K Nursery, I'd like the Deal of the Day: ${p.name} (₹${p.price}).`)}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="mt-3 inline-flex w-full items-center justify-center gap-1.5 rounded-full bg-primary px-4 py-2 text-xs text-primary-foreground transition hover:bg-primary/90"
+                    >
+                      <MessageCircle className="h-3.5 w-3.5" /> Order on WhatsApp
+                    </a>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
         </div>
       </section>
 
