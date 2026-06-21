@@ -2,9 +2,9 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { WhatsAppFab } from "@/components/WhatsAppFab";
-import { CATEGORY_META, PLANT_CATEGORIES, plants, posts, whatsappLink } from "@/lib/nursery-data";
+import { PLANT_CATEGORIES, plants, posts, whatsappLink } from "@/lib/nursery-data";
 import hero from "@/assets/hero.jpg";
-import { ArrowRight, Heart, Leaf, MapPin, MessageCircle, ShieldCheck, Sprout, Truck } from "lucide-react";
+import { ArrowRight, Heart, Leaf, MapPin, MessageCircle, Sprout, Truck } from "lucide-react";
 
 
 export const Route = createFileRoute("/")({
