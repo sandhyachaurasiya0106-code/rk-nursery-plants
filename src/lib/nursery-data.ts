@@ -5,6 +5,9 @@ import zz from "@/assets/plant-zz.jpg";
 import areca from "@/assets/plant-areca.jpg";
 import peacelily from "@/assets/plant-peacelily.jpg";
 import rubber from "@/assets/plant-rubber.jpg";
+import blogWatering from "@/assets/blog-watering.jpg";
+import blogLight from "@/assets/blog-light.jpg";
+import blogRepot from "@/assets/blog-repot.jpg";
 
 export const WHATSAPP_NUMBER = "919999999999"; // R.K Nursery — replace with real number
 export const NURSERY_NAME = "R.K Nursery";
@@ -43,7 +46,7 @@ export const posts = [
     excerpt: "Forget calendars. Learn to read the soil, the leaves, and the season — and your plants will thank you.",
     date: "Jun 12, 2026",
     readTime: "5 min",
-    image: (await import("@/assets/blog-watering.jpg")).default,
+    image: blogWatering,
     body: `Most plant deaths come from overwatering, not underwatering. Stick a finger an inch into the soil — if it's dry, water deeply until it drains from the bottom. If it's still cool and damp, wait. Tropicals like Monstera want a weekly soak in summer and far less in winter. Succulents and ZZ plants want to dry out completely between drinks. Trust the soil, not the schedule.`,
   },
   {
@@ -52,7 +55,7 @@ export const posts = [
     excerpt: "South-facing, east-facing, that dim hallway corner — here's how to match plants to the light you actually have.",
     date: "May 28, 2026",
     readTime: "6 min",
-    image: (await import("@/assets/blog-light.jpg")).default,
+    image: blogLight,
     body: `Hold your hand a foot from the wall at noon. A sharp, dark shadow means bright direct light — perfect for cacti and citrus. A soft but defined shadow is bright indirect — Monstera, Fiddle Leaf, Rubber Plant territory. A faint, blurry shadow is medium to low light, where Snake Plants, ZZ Plants, and Pothos truly shine.`,
   },
   {
@@ -61,7 +64,7 @@ export const posts = [
     excerpt: "Roots circling the pot? Water running straight through? It's time. Here's the gentle way to move up a size.",
     date: "May 4, 2026",
     readTime: "4 min",
-    image: (await import("@/assets/blog-repot.jpg")).default,
+    image: blogRepot,
     body: `Repot in spring or early summer when the plant is actively growing. Go only one size up — too much soil holds too much water and rots young roots. Loosen the root ball gently, place at the same depth as before, and water lightly. Skip fertilizer for three weeks while roots settle in.`,
   },
 ];
