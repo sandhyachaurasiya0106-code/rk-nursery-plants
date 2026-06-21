@@ -125,7 +125,8 @@ function Home() {
                 )}
                 <div className="absolute inset-0 bg-gradient-to-t from-primary/85 via-primary/20 to-transparent" />
                 <div className="absolute inset-x-0 bottom-0 p-6 text-primary-foreground">
-                  <p className="text-2xl">{meta.emoji}</p>
+                  <p className="text-2xl">
+</p>
                   <h3 className="mt-1 font-display text-2xl">{cat} Plants</h3>
                   <p className="mt-1 text-sm text-primary-foreground/85">{meta.tagline}</p>
                   <p className="mt-3 inline-flex items-center gap-1.5 text-sm">
