@@ -25,7 +25,7 @@ import blogWatering from "@/assets/blog-watering.jpg";
 import blogLight from "@/assets/blog-light.jpg";
 import blogRepot from "@/assets/blog-repot.jpg";
 
-export const WHATSAPP_NUMBER = "919999999999"; // R.K Nursery — replace with real number
+export const WHATSAPP_NUMBER = "919137589334"; // R.K Nursery
 export const NURSERY_NAME = "R.K Nursery";
 export const NURSERY_ADDRESS =
   "Veera Desai Road, Opposite Palash Tower, Near Country Club, Andheri West, Mumbai - 400058";
