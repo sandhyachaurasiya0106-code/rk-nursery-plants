@@ -56,16 +56,16 @@ export const plants: Plant[] = [
   // Indoor
   { id: "monstera", name: "Monstera Deliciosa", latin: "Monstera deliciosa", price: 850, category: "Indoor", light: "Bright indirect", water: "Weekly", image: monstera, description: "The iconic split-leaf statement plant. Vigorous, sculptural, and forgiving." },
   { id: "snake", name: "Snake Plant", latin: "Sansevieria trifasciata", price: 450, category: "Indoor", light: "Low to bright", water: "Every 2–3 weeks", image: snake, description: "Architectural and nearly indestructible — perfect for first-time plant keepers." },
-  { id: "fiddle", name: "Fiddle Leaf Fig", latin: "Ficus lyrata", price: 1450, category: "Indoor", light: "Bright indirect", water: "Weekly", image: fiddle, description: "Tall, glossy, dramatic. A living centerpiece for sunlit corners." },
-  { id: "zz", name: "ZZ Plant", latin: "Zamioculcas zamiifolia", price: 650, category: "Indoor", light: "Low to medium", water: "Every 2 weeks", image: zz, description: "Glossy, waxy leaves and zero drama. Thrives on neglect." },
-  { id: "areca", name: "Areca Palm", latin: "Dypsis lutescens", price: 1250, category: "Indoor", light: "Bright indirect", water: "Twice weekly", image: areca, description: "Tropical softness and serious air-purifying power in one graceful plant." },
-  { id: "peacelily", name: "Peace Lily", latin: "Spathiphyllum wallisii", price: 550, category: "Indoor", light: "Low to medium", water: "Weekly", image: peacelily, description: "Elegant white blooms above deep green foliage. Tells you when it's thirsty." },
-  { id: "rubber", name: "Rubber Plant", latin: "Ficus elastica", price: 950, category: "Indoor", light: "Bright indirect", water: "Weekly", image: rubber, description: "Burgundy-tinged leaves with a high-gloss finish. Effortlessly stately." },
+  { id: "fiddle", name: "Fiddle Leaf Fig", latin: "Ficus lyrata", price: 750, category: "Indoor", light: "Bright indirect", water: "Weekly", image: fiddle, description: "Tall, glossy, dramatic. A living centerpiece for sunlit corners." },
+  { id: "zz", name: "ZZ Plant", latin: "Zamioculcas zamiifolia", price: 500, category: "Indoor", light: "Low to medium", water: "Every 2 weeks", image: zz, description: "Glossy, waxy leaves and zero drama. Thrives on neglect." },
+  { id: "areca", name: "Areca Palm", latin: "Dypsis lutescens", price: 650, category: "Indoor", light: "Bright indirect", water: "Twice weekly", image: areca, description: "Tropical softness and serious air-purifying power in one graceful plant." },
+  { id: "peacelily", name: "Peace Lily", latin: "Spathiphyllum wallisii", price: 450, category: "Indoor", light: "Low to medium", water: "Weekly", image: peacelily, description: "Elegant white blooms above deep green foliage. Tells you when it's thirsty." },
+  { id: "rubber", name: "Rubber Plant", latin: "Ficus elastica", price: 400, category: "Indoor", light: "Bright indirect", water: "Weekly", image: rubber, description: "Burgundy-tinged leaves with a high-gloss finish. Effortlessly stately." },
 
   // Outdoor
-  { id: "ashoka", name: "Ashoka Tree", latin: "Saraca asoca", price: 750, category: "Outdoor", light: "Full sun", water: "Twice weekly", image: ashoka, description: "Slender, evergreen, and auspicious. A graceful boundary or driveway tree." },
-  { id: "ficus", name: "Ficus Benjamina", latin: "Ficus benjamina", price: 900, category: "Outdoor", light: "Full to part sun", water: "Weekly", image: ficus, description: "Bushy, glossy, and easy to shape — a classic outdoor screen plant." },
-  { id: "bamboo", name: "Lucky Bamboo", latin: "Dracaena sanderiana", price: 600, category: "Outdoor", light: "Bright indirect", water: "Twice weekly", image: bamboo, description: "Tall, calm verticals for balconies, patios, and entryways." },
+  { id: "ashoka", name: "Ashoka Tree", latin: "Saraca asoca", price: 400, category: "Outdoor", light: "Full sun", water: "Twice weekly", image: ashoka, description: "Slender, evergreen, and auspicious. A graceful boundary or driveway tree." },
+  { id: "ficus", name: "Ficus Benjamina", latin: "Ficus benjamina", price: 850, category: "Outdoor", light: "Full to part sun", water: "Weekly", image: ficus, description: "Bushy, glossy, and easy to shape — a classic outdoor screen plant." },
+  { id: "bamboo", name: "Lucky Bamboo", latin: "Dracaena sanderiana", price: 450, category: "Outdoor", light: "Bright indirect", water: "Twice weekly", image: bamboo, description: "Tall, calm verticals for balconies, patios, and entryways." },
   { id: "croton", name: "Croton", latin: "Codiaeum variegatum", price: 500, category: "Outdoor", light: "Bright sun", water: "Twice weekly", image: croton, description: "Fiery red, yellow, and green foliage that loves the Mumbai sun." },
 
   // Flowering
