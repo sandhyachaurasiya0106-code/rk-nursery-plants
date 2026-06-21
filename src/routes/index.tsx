@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { WhatsAppFab } from "@/components/WhatsAppFab";
-import { plants, posts, whatsappLink } from "@/lib/nursery-data";
+import { CATEGORY_META, PLANT_CATEGORIES, plants, posts, whatsappLink } from "@/lib/nursery-data";
 import hero from "@/assets/hero.jpg";
 import { ArrowRight, Leaf, MapPin, MessageCircle, Sprout, Truck } from "lucide-react";
 
@@ -90,6 +90,51 @@ function Home() {
               </div>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* CATEGORIES */}
+      <section className="container-rk py-24">
+        <div className="flex items-end justify-between gap-6">
+          <div>
+            <p className="text-xs uppercase tracking-widest text-muted-foreground">Shop by category</p>
+            <h2 className="mt-2 text-4xl text-primary md:text-5xl">Find your plant kind.</h2>
+          </div>
+          <Link to="/catalog" className="hidden text-sm text-primary hover:underline md:inline">All plants →</Link>
+        </div>
+        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {PLANT_CATEGORIES.map((cat) => {
+            const sample = plants.find((p) => p.category === cat);
+            const count = plants.filter((p) => p.category === cat).length;
+            const meta = CATEGORY_META[cat];
+            return (
+              <Link
+                key={cat}
+                to="/catalog"
+                className="group relative overflow-hidden rounded-2xl bg-[color:var(--cream-deep)]"
+              >
+                {sample && (
+                  <img
+                    src={sample.image}
+                    alt={`${cat} plants at R.K Nursery`}
+                    loading="lazy"
+                    width={800}
+                    height={1000}
+                    className="aspect-[4/5] w-full object-cover transition duration-700 group-hover:scale-[1.03]"
+                  />
+                )}
+                <div className="absolute inset-0 bg-gradient-to-t from-primary/85 via-primary/20 to-transparent" />
+                <div className="absolute inset-x-0 bottom-0 p-6 text-primary-foreground">
+                  <p className="text-2xl">{meta.emoji}</p>
+                  <h3 className="mt-1 font-display text-2xl">{cat} Plants</h3>
+                  <p className="mt-1 text-sm text-primary-foreground/85">{meta.tagline}</p>
+                  <p className="mt-3 inline-flex items-center gap-1.5 text-sm">
+                    View {count} plants <ArrowRight className="h-3.5 w-3.5" />
+                  </p>
+                </div>
+              </Link>
+            );
+          })}
         </div>
       </section>
 
