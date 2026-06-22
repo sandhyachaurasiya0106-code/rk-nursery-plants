@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { Leaf } from "lucide-react";
+import { CartButton } from "@/components/CartButton";
 
 export function SiteHeader() {
   return (
@@ -28,15 +29,17 @@ export function SiteHeader() {
             <Link to="/journal" className="text-foreground/70 transition hover:text-primary" activeProps={{ className: "text-primary" }}>Journal</Link>
             <Link to="/visit" className="text-foreground/70 transition hover:text-primary" activeProps={{ className: "text-primary" }}>Visit</Link>
           </nav>
-          <Link
-            to="/catalog"
-            className="rounded-full bg-primary px-5 py-2 text-sm text-primary-foreground shadow-soft transition hover:bg-primary/90"
-          >
-            Shop plants
-          </Link>
+          <div className="flex items-center gap-2">
+            <CartButton />
+            <Link
+              to="/catalog"
+              className="hidden rounded-full bg-primary px-5 py-2 text-sm text-primary-foreground shadow-soft transition hover:bg-primary/90 sm:inline-flex"
+            >
+              Shop plants
+            </Link>
+          </div>
         </div>
       </header>
     </div>
   );
 }
-

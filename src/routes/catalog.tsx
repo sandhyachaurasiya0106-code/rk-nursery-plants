@@ -5,7 +5,8 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { WhatsAppFab } from "@/components/WhatsAppFab";
 import { PLANT_CATEGORIES, plants, whatsappLink, type PlantCategory } from "@/lib/nursery-data";
 import { Slider } from "@/components/ui/slider";
-import { Droplets, MessageCircle, Sun } from "lucide-react";
+import { Droplets, MessageCircle, Plus, Sun } from "lucide-react";
+import { useCart } from "@/lib/cart";
 
 export const Route = createFileRoute("/catalog")({
   head: () => ({
@@ -28,6 +29,7 @@ const PRICE_MAX = Math.max(...plants.map((p) => p.price));
 function Catalog() {
   const [filter, setFilter] = useState<Filter>("All");
   const [range, setRange] = useState<[number, number]>([PRICE_MIN, PRICE_MAX]);
+  const { add } = useCart();
 
   const list = useMemo(
     () =>
@@ -138,14 +140,22 @@ function Catalog() {
                   <span className="inline-flex items-center gap-1"><Sun className="h-3 w-3" /> {p.light}</span>
                   <span className="inline-flex items-center gap-1"><Droplets className="h-3 w-3" /> {p.water}</span>
                 </div>
-                <a
-                  href={whatsappLink(`Hi R.K Nursery, I'd like to order: ${p.name} (₹${p.price}). Please confirm availability.`)}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="mt-4 inline-flex items-center gap-2 rounded-full bg-primary px-4 py-2 text-sm text-primary-foreground transition hover:bg-primary/90"
-                >
-                  <MessageCircle className="h-4 w-4" /> Order on WhatsApp
-                </a>
+                <div className="mt-4 flex flex-wrap items-center gap-2">
+                  <button
+                    onClick={() => add(p.id)}
+                    className="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-2 text-sm text-primary-foreground transition hover:bg-primary/90"
+                  >
+                    <Plus className="h-4 w-4" /> Add to cart
+                  </button>
+                  <a
+                    href={whatsappLink(`Hi R.K Nursery, I'd like to order: ${p.name} (₹${p.price}). Please confirm availability.`)}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-2 rounded-full border border-primary/30 px-4 py-2 text-sm text-primary transition hover:bg-primary/5"
+                  >
+                    <MessageCircle className="h-4 w-4" /> WhatsApp
+                  </a>
+                </div>
               </article>
             ))}
           </div>
