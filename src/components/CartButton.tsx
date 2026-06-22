@@ -101,14 +101,12 @@ export function CartButton() {
               >
                 Checkout on WhatsApp
               </a>
-              <PopoverClose asChild>
-                <Link
-                  to="/cart"
-                  className="mt-2 flex w-full items-center justify-center rounded-full border border-border px-4 py-2 text-sm text-primary transition hover:border-primary/40 hover:bg-primary/5"
-                >
-                  View full cart
-                </Link>
-              </PopoverClose>
+              <Link
+                to="/cart"
+                className="mt-2 flex w-full items-center justify-center rounded-full border border-border px-4 py-2 text-sm text-primary transition hover:border-primary/40 hover:bg-primary/5"
+              >
+                View full cart
+              </Link>
               <button
                 onClick={clear}
                 className="mt-2 inline-flex w-full items-center justify-center gap-1 text-xs text-muted-foreground transition hover:text-destructive"
