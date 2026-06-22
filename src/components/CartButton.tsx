@@ -1,6 +1,6 @@
 import { Minus, Plus, ShoppingBag, Trash2 } from "lucide-react";
 import { Link } from "@tanstack/react-router";
-import { Popover, PopoverContent, PopoverTrigger, PopoverClose } from "@/components/ui/popover";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { useCart, buildCheckoutMessage } from "@/lib/cart";
 import { whatsappLink } from "@/lib/nursery-data";
 
