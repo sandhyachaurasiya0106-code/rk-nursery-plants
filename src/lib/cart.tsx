@@ -1,5 +1,13 @@
 import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
-import { plants, type Plant } from "@/lib/nursery-data";
+import { plants, NURSERY_NAME, type Plant } from "@/lib/nursery-data";
+
+export function buildCheckoutMessage(
+  detailed: Array<{ plant: Plant; qty: number; lineTotal: number }>,
+  total: number,
+) {
+  const lines = detailed.map((d) => `• ${d.plant.name} × ${d.qty} — ₹${d.lineTotal}`).join("\n");
+  return `Hello ${NURSERY_NAME}, I'd like to order:\n${lines}\n\nTotal: ₹${total}\n\nPlease confirm availability and delivery.`;
+}
 
 export type CartItem = { id: string; qty: number };
 
