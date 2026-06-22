@@ -1,17 +1,12 @@
-import { Minus, Plus, ShoppingBag, Trash2, X } from "lucide-react";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { useCart } from "@/lib/cart";
-import { whatsappLink, NURSERY_NAME } from "@/lib/nursery-data";
+import { Minus, Plus, ShoppingBag, Trash2 } from "lucide-react";
+import { Link } from "@tanstack/react-router";
+import { Popover, PopoverContent, PopoverTrigger, PopoverClose } from "@/components/ui/popover";
+import { useCart, buildCheckoutMessage } from "@/lib/cart";
+import { whatsappLink } from "@/lib/nursery-data";
 
 export function CartButton() {
   const { detailed, count, total, setQty, remove, clear } = useCart();
-
-  const checkoutMessage = () => {
-    const lines = detailed
-      .map((d) => `• ${d.plant.name} × ${d.qty} — ₹${d.lineTotal}`)
-      .join("\n");
-    return `Hello ${NURSERY_NAME}, I'd like to order:\n${lines}\n\nTotal: ₹${total}\n\nPlease confirm availability and delivery.`;
-  };
+  const message = buildCheckoutMessage(detailed, total);
 
   return (
     <Popover>
@@ -59,9 +54,9 @@ export function CartButton() {
                       <button
                         onClick={() => remove(plant.id)}
                         aria-label={`Remove ${plant.name}`}
-                        className="text-muted-foreground transition hover:text-destructive"
+                        className="inline-flex h-6 w-6 items-center justify-center rounded-full text-muted-foreground transition hover:bg-destructive/10 hover:text-destructive"
                       >
-                        <X className="h-3.5 w-3.5" />
+                        <Trash2 className="h-3.5 w-3.5" />
                       </button>
                     </div>
                     <p className="text-xs text-muted-foreground">₹{plant.price} each</p>
@@ -99,13 +94,21 @@ export function CartButton() {
                 Delivery confirmed on WhatsApp.
               </p>
               <a
-                href={whatsappLink(checkoutMessage())}
+                href={whatsappLink(message)}
                 target="_blank"
                 rel="noreferrer"
                 className="mt-3 flex w-full items-center justify-center gap-2 rounded-full bg-primary px-4 py-2 text-sm text-primary-foreground transition hover:bg-primary/90"
               >
                 Checkout on WhatsApp
               </a>
+              <PopoverClose asChild>
+                <Link
+                  to="/cart"
+                  className="mt-2 flex w-full items-center justify-center rounded-full border border-border px-4 py-2 text-sm text-primary transition hover:border-primary/40 hover:bg-primary/5"
+                >
+                  View full cart
+                </Link>
+              </PopoverClose>
               <button
                 onClick={clear}
                 className="mt-2 inline-flex w-full items-center justify-center gap-1 text-xs text-muted-foreground transition hover:text-destructive"
