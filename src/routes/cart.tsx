@@ -1,9 +1,11 @@
+import { useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Minus, Plus, ShoppingBag, Trash2 } from "lucide-react";
 import { useCart, buildCheckoutMessage } from "@/lib/cart";
 import { whatsappLink } from "@/lib/nursery-data";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
+import { RazorpayCheckout } from "@/components/RazorpayCheckout";
 
 export const Route = createFileRoute("/cart")({
   head: () => ({
