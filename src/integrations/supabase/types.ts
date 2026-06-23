@@ -14,7 +14,63 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      orders: {
+        Row: {
+          admin_notified: boolean
+          amount: number
+          created_at: string
+          currency: string
+          customer_address: string | null
+          customer_email: string | null
+          customer_name: string | null
+          customer_phone: string | null
+          id: string
+          items: Json
+          notes: string | null
+          razorpay_order_id: string
+          razorpay_payment_id: string | null
+          razorpay_signature: string | null
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          admin_notified?: boolean
+          amount: number
+          created_at?: string
+          currency?: string
+          customer_address?: string | null
+          customer_email?: string | null
+          customer_name?: string | null
+          customer_phone?: string | null
+          id?: string
+          items?: Json
+          notes?: string | null
+          razorpay_order_id: string
+          razorpay_payment_id?: string | null
+          razorpay_signature?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          admin_notified?: boolean
+          amount?: number
+          created_at?: string
+          currency?: string
+          customer_address?: string | null
+          customer_email?: string | null
+          customer_name?: string | null
+          customer_phone?: string | null
+          id?: string
+          items?: Json
+          notes?: string | null
+          razorpay_order_id?: string
+          razorpay_payment_id?: string | null
+          razorpay_signature?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
