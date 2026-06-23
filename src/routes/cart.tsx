@@ -1,9 +1,11 @@
+import { useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Minus, Plus, ShoppingBag, Trash2 } from "lucide-react";
 import { useCart, buildCheckoutMessage } from "@/lib/cart";
 import { whatsappLink } from "@/lib/nursery-data";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
+import { RazorpayCheckout } from "@/components/RazorpayCheckout";
 
 export const Route = createFileRoute("/cart")({
   head: () => ({
@@ -20,6 +22,8 @@ export const Route = createFileRoute("/cart")({
 function CartPage() {
   const { detailed, count, total, setQty, remove, clear } = useCart();
   const message = buildCheckoutMessage(detailed, total);
+  const [customer, setCustomer] = useState({ name: "", phone: "", email: "", address: "" });
+
 
   return (
     <div className="min-h-screen bg-background">
@@ -112,11 +116,53 @@ function CartPage() {
                 <span className="text-xs uppercase tracking-widest text-muted-foreground">Total</span>
                 <span className="font-display text-2xl text-primary">₹{total}</span>
               </div>
+
+              <div className="mt-5 space-y-2">
+                <p className="text-xs font-medium uppercase tracking-widest text-muted-foreground">
+                  Delivery details
+                </p>
+                <input
+                  value={customer.name}
+                  onChange={(e) => setCustomer((c) => ({ ...c, name: e.target.value }))}
+                  placeholder="Full name"
+                  className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm outline-none focus:border-primary"
+                />
+                <input
+                  value={customer.phone}
+                  onChange={(e) => setCustomer((c) => ({ ...c, phone: e.target.value }))}
+                  placeholder="Phone (for delivery)"
+                  className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm outline-none focus:border-primary"
+                />
+                <input
+                  value={customer.email}
+                  onChange={(e) => setCustomer((c) => ({ ...c, email: e.target.value }))}
+                  placeholder="Email (for receipt)"
+                  className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm outline-none focus:border-primary"
+                />
+                <textarea
+                  value={customer.address}
+                  onChange={(e) => setCustomer((c) => ({ ...c, address: e.target.value }))}
+                  placeholder="Delivery address"
+                  rows={2}
+                  className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm outline-none focus:border-primary"
+                />
+              </div>
+
+              <div className="mt-4">
+                <RazorpayCheckout customer={customer} />
+              </div>
+
+              <div className="my-4 flex items-center gap-2 text-[11px] uppercase tracking-widest text-muted-foreground">
+                <span className="h-px flex-1 bg-border" />
+                or
+                <span className="h-px flex-1 bg-border" />
+              </div>
+
               <a
                 href={whatsappLink(message)}
                 target="_blank"
                 rel="noreferrer"
-                className="mt-5 flex w-full items-center justify-center gap-2 rounded-full bg-primary px-4 py-2.5 text-sm text-primary-foreground transition hover:bg-primary/90"
+                className="flex w-full items-center justify-center gap-2 rounded-full border border-primary px-4 py-2.5 text-sm text-primary transition hover:bg-primary/5"
               >
                 Place order on WhatsApp
               </a>
@@ -126,6 +172,7 @@ function CartPage() {
               >
                 <Trash2 className="h-3.5 w-3.5" /> Clear cart
               </button>
+
             </aside>
           </div>
         )}

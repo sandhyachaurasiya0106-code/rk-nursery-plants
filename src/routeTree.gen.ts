@@ -10,15 +10,23 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as VisitRouteImport } from './routes/visit'
+import { Route as OrderSuccessRouteImport } from './routes/order-success'
 import { Route as CatalogRouteImport } from './routes/catalog'
 import { Route as CartRouteImport } from './routes/cart'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as JournalIndexRouteImport } from './routes/journal.index'
 import { Route as JournalSlugRouteImport } from './routes/journal.$slug'
+import { Route as ApiPublicRazorpayVerifyRouteImport } from './routes/api/public/razorpay/verify'
+import { Route as ApiPublicRazorpayCreateOrderRouteImport } from './routes/api/public/razorpay/create-order'
 
 const VisitRoute = VisitRouteImport.update({
   id: '/visit',
   path: '/visit',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OrderSuccessRoute = OrderSuccessRouteImport.update({
+  id: '/order-success',
+  path: '/order-success',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CatalogRoute = CatalogRouteImport.update({
@@ -46,31 +54,51 @@ const JournalSlugRoute = JournalSlugRouteImport.update({
   path: '/journal/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicRazorpayVerifyRoute = ApiPublicRazorpayVerifyRouteImport.update({
+  id: '/api/public/razorpay/verify',
+  path: '/api/public/razorpay/verify',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicRazorpayCreateOrderRoute =
+  ApiPublicRazorpayCreateOrderRouteImport.update({
+    id: '/api/public/razorpay/create-order',
+    path: '/api/public/razorpay/create-order',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/cart': typeof CartRoute
   '/catalog': typeof CatalogRoute
+  '/order-success': typeof OrderSuccessRoute
   '/visit': typeof VisitRoute
   '/journal/$slug': typeof JournalSlugRoute
   '/journal/': typeof JournalIndexRoute
+  '/api/public/razorpay/create-order': typeof ApiPublicRazorpayCreateOrderRoute
+  '/api/public/razorpay/verify': typeof ApiPublicRazorpayVerifyRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/cart': typeof CartRoute
   '/catalog': typeof CatalogRoute
+  '/order-success': typeof OrderSuccessRoute
   '/visit': typeof VisitRoute
   '/journal/$slug': typeof JournalSlugRoute
   '/journal': typeof JournalIndexRoute
+  '/api/public/razorpay/create-order': typeof ApiPublicRazorpayCreateOrderRoute
+  '/api/public/razorpay/verify': typeof ApiPublicRazorpayVerifyRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/cart': typeof CartRoute
   '/catalog': typeof CatalogRoute
+  '/order-success': typeof OrderSuccessRoute
   '/visit': typeof VisitRoute
   '/journal/$slug': typeof JournalSlugRoute
   '/journal/': typeof JournalIndexRoute
+  '/api/public/razorpay/create-order': typeof ApiPublicRazorpayCreateOrderRoute
+  '/api/public/razorpay/verify': typeof ApiPublicRazorpayVerifyRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -78,28 +106,46 @@ export interface FileRouteTypes {
     | '/'
     | '/cart'
     | '/catalog'
+    | '/order-success'
     | '/visit'
     | '/journal/$slug'
     | '/journal/'
+    | '/api/public/razorpay/create-order'
+    | '/api/public/razorpay/verify'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/cart' | '/catalog' | '/visit' | '/journal/$slug' | '/journal'
+  to:
+    | '/'
+    | '/cart'
+    | '/catalog'
+    | '/order-success'
+    | '/visit'
+    | '/journal/$slug'
+    | '/journal'
+    | '/api/public/razorpay/create-order'
+    | '/api/public/razorpay/verify'
   id:
     | '__root__'
     | '/'
     | '/cart'
     | '/catalog'
+    | '/order-success'
     | '/visit'
     | '/journal/$slug'
     | '/journal/'
+    | '/api/public/razorpay/create-order'
+    | '/api/public/razorpay/verify'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CartRoute: typeof CartRoute
   CatalogRoute: typeof CatalogRoute
+  OrderSuccessRoute: typeof OrderSuccessRoute
   VisitRoute: typeof VisitRoute
   JournalSlugRoute: typeof JournalSlugRoute
   JournalIndexRoute: typeof JournalIndexRoute
+  ApiPublicRazorpayCreateOrderRoute: typeof ApiPublicRazorpayCreateOrderRoute
+  ApiPublicRazorpayVerifyRoute: typeof ApiPublicRazorpayVerifyRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -109,6 +155,13 @@ declare module '@tanstack/react-router' {
       path: '/visit'
       fullPath: '/visit'
       preLoaderRoute: typeof VisitRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/order-success': {
+      id: '/order-success'
+      path: '/order-success'
+      fullPath: '/order-success'
+      preLoaderRoute: typeof OrderSuccessRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/catalog': {
@@ -146,6 +199,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof JournalSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/razorpay/verify': {
+      id: '/api/public/razorpay/verify'
+      path: '/api/public/razorpay/verify'
+      fullPath: '/api/public/razorpay/verify'
+      preLoaderRoute: typeof ApiPublicRazorpayVerifyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/razorpay/create-order': {
+      id: '/api/public/razorpay/create-order'
+      path: '/api/public/razorpay/create-order'
+      fullPath: '/api/public/razorpay/create-order'
+      preLoaderRoute: typeof ApiPublicRazorpayCreateOrderRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -153,9 +220,12 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CartRoute: CartRoute,
   CatalogRoute: CatalogRoute,
+  OrderSuccessRoute: OrderSuccessRoute,
   VisitRoute: VisitRoute,
   JournalSlugRoute: JournalSlugRoute,
   JournalIndexRoute: JournalIndexRoute,
+  ApiPublicRazorpayCreateOrderRoute: ApiPublicRazorpayCreateOrderRoute,
+  ApiPublicRazorpayVerifyRoute: ApiPublicRazorpayVerifyRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
