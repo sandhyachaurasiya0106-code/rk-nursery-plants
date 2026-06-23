@@ -22,6 +22,8 @@ export const Route = createFileRoute("/cart")({
 function CartPage() {
   const { detailed, count, total, setQty, remove, clear } = useCart();
   const message = buildCheckoutMessage(detailed, total);
+  const [customer, setCustomer] = useState({ name: "", phone: "", email: "", address: "" });
+
 
   return (
     <div className="min-h-screen bg-background">
