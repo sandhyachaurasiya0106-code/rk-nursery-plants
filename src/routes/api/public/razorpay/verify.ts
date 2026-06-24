@@ -71,6 +71,70 @@ async function notifyAdmin(order: {
   }
 }
 
+async function sendCustomerReceipt(order: {
+  razorpay_order_id: string;
+  razorpay_payment_id: string | null;
+  amount: number;
+  customer_name: string | null;
+  customer_email: string | null;
+  customer_address: string | null;
+  items: unknown;
+}) {
+  const resendKey = process.env.RESEND_API_KEY;
+  if (!resendKey || !order.customer_email) {
+    return { sent: false, reason: "no_email_or_key" };
+  }
+
+  const itemsList = Array.isArray(order.items)
+    ? (order.items as Array<{ name: string; qty: number; price: number }>)
+        .map((i) => `<li>${i.name} × ${i.qty} — ₹${i.price * i.qty}</li>`)
+        .join("")
+    : "";
+  const amountInr = (order.amount / 100).toFixed(2);
+  const html = `
+    <div style="font-family:Helvetica,Arial,sans-serif;max-width:560px;margin:auto;color:#1f2a24;">
+      <h2 style="color:#2d5a3d;margin-bottom:4px;">Thank you for your order 🌿</h2>
+      <p style="color:#5b6b62;margin-top:0;">R.K Nursery has received your payment. We'll be in touch shortly to arrange delivery.</p>
+      <div style="border:1px solid #e5ddd0;border-radius:12px;padding:16px;margin-top:16px;">
+        <p><b>Order:</b> ${order.razorpay_order_id}<br/>
+        <b>Payment:</b> ${order.razorpay_payment_id ?? "-"}<br/>
+        <b>Amount paid:</b> ₹${amountInr}</p>
+        <h3 style="margin-bottom:6px;">Items</h3>
+        <ul style="padding-left:18px;margin-top:0;">${itemsList}</ul>
+        ${order.customer_address ? `<h3 style="margin-bottom:6px;">Delivery to</h3><p style="margin-top:0;">${order.customer_name ?? ""}<br/>${order.customer_address}</p>` : ""}
+      </div>
+      <p style="margin-top:24px;color:#5b6b62;font-size:13px;">
+        Need help? Reply to this email or message us on WhatsApp at +91 91375 89334.
+      </p>
+      <p style="color:#5b6b62;font-size:12px;margin-top:20px;">— R.K Nursery, Andheri West, Mumbai</p>
+    </div>
+  `;
+
+  try {
+    const r = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${resendKey}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        from: "R.K Nursery <onboarding@resend.dev>",
+        to: [order.customer_email],
+        subject: `Your R.K Nursery order is confirmed — ₹${amountInr}`,
+        html,
+      }),
+    });
+    if (!r.ok) {
+      console.error("Customer receipt failed:", r.status, await r.text());
+      return { sent: false, reason: "resend_error" };
+    }
+    return { sent: true };
+  } catch (err) {
+    console.error("sendCustomerReceipt error:", err);
+    return { sent: false, reason: "exception" };
+  }
+}
+
 export const Route = createFileRoute("/api/public/razorpay/verify")({
   server: {
     handlers: {
@@ -128,7 +192,10 @@ export const Route = createFileRoute("/api/public/razorpay/verify")({
             return Response.json({ error: "DB error" }, { status: 500 });
           }
 
-          const notify = await notifyAdmin(updated);
+          const [notify] = await Promise.all([
+            notifyAdmin(updated),
+            sendCustomerReceipt(updated),
+          ]);
           if (notify.sent) {
             await supabaseAdmin
               .from("orders")
